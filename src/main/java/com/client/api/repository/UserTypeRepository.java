@@ -9,6 +9,6 @@ import com.client.api.model.UserPaymentInfo;
 import com.client.api.model.UserType;
 
 @Repository
-public interface UserTypeRepository extends JpaRepository<SubscriptionType, Long>{
+public interface UserTypeRepository extends JpaRepository<UserType, Long>{
 
 }

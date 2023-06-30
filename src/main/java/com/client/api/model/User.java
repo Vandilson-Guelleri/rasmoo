@@ -1,21 +1,18 @@
 package com.client.api.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import org.hibernate.annotations.ManyToAny;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,7 +27,7 @@ import lombok.NoArgsConstructor;
 public class User implements Serializable{
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "users_id")
 	private Long id;
 	
@@ -43,14 +40,14 @@ public class User implements Serializable{
 	private String cpf;
 	
 	@Column(name = "dt_subscription")
-	private LocalDate dtSubscription = LocalDate.now();
+	private LocalDate dtSubscription;
 	
 	@Column(name = "dt_expiration")
 	private LocalDate dtExpiration;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_type_id")
-	private UserType type;
+	private UserType userType;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "subscriptions_type_id")
